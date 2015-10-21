@@ -21,6 +21,8 @@ sql = """
 
 cmds = [
   ~s(mysql -u root -e "GRANT ALL ON *.* TO 'mariaex_user'@'localhost' IDENTIFIED BY 'mariaex_pass';"),
+  ~s(mysql -u root -e "GRANT ALL ON *.* to 'mariaex_user_2'@'localhost' identified by 'mariaex_pass';"),
+  ~s/mysql -u root -e "update mysql.user set password = OLD_PASSWORD('mariaex_pass'), plugin = 'mysql_old_password' where user = 'mariaex_user_2';"/,
   ~s(mysql -u root -e "DROP DATABASE IF EXISTS mariaex_test;"),
   ~s(mysql -u root -e "CREATE DATABASE mariaex_test DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'";),
   ~s(mysql -u root mariaex_test -e "#{sql}"),

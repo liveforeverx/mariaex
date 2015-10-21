@@ -9,4 +9,8 @@ defmodule StartTest do
     assert {:error, %Mariaex.Error{message: "tcp connect: econnrefused"}} =
       Mariaex.Connection.start_link(username: "root", database: "mariaex_test", port: 60999)
   end
+
+  test "secure auth false" do
+    {:ok, _} = Mariaex.Connection.start_link(username: "mariaex_user_2", database: "mariaex_test", password: "mariaex_pass")
+  end
 end
